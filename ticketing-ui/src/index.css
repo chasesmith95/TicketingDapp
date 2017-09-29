@@ -5,7 +5,7 @@ body {
 }
 
 .grey-section {
-  background: grey;
+  background: #425771;
   margin: 0;
   padding: 25px;
 }
@@ -17,7 +17,7 @@ body {
   font-size: 20px;
 }
 .footer {
-  background: black;
+  background: #2E343D;
   padding: 50px;
 }
 .section {
@@ -34,12 +34,18 @@ div .header {
   margin: 0;
   padding: 20px;
   width: 100%;
-  background: black;
+  background: #2E343D;
 }
 
 .blue {
- color: #00d8ff;
+ color: #477186;
 }
+
+.red {
+ color: #801515;
+}
+
+
 
 .white {
  color: white;

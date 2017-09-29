@@ -115,6 +115,7 @@ contract Ticketing {
     function getOwner() constant returns (address) {
       return owner;
     }
+    
 		//For Oracle/Owner for now
 		function verifyBureau(address bureau) isOwner(msg.sender) isBureau(bureau) {
 			bureaus[bureau].isVerified = true;
