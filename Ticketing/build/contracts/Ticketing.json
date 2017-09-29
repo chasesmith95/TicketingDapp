@@ -1,0 +1,804 @@
+{
+  "contract_name": "Ticketing",
+  "abi": [
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_name",
+          "type": "bytes32"
+        }
+      ],
+      "name": "addBureau",
+      "outputs": [],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "tID",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "verifyBureau",
+      "outputs": [],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "ticketID",
+          "type": "uint256"
+        }
+      ],
+      "name": "PayTicket",
+      "outputs": [],
+      "payable": true,
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "bureau",
+          "type": "address"
+        }
+      ],
+      "name": "unverifyBureau",
+      "outputs": [],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "bureau",
+          "type": "address"
+        }
+      ],
+      "name": "verifyBureau",
+      "outputs": [],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "i",
+          "type": "uint256"
+        }
+      ],
+      "name": "getTicket",
+      "outputs": [
+        {
+          "name": "amount",
+          "type": "uint256"
+        },
+        {
+          "name": "status",
+          "type": "uint8"
+        },
+        {
+          "name": "ticketID",
+          "type": "uint256"
+        },
+        {
+          "name": "cop",
+          "type": "address"
+        },
+        {
+          "name": "criminal",
+          "type": "bytes32"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getOwner",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_amount",
+          "type": "uint256"
+        },
+        {
+          "name": "_criminal",
+          "type": "bytes32"
+        }
+      ],
+      "name": "makeTicket",
+      "outputs": [],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "id",
+          "type": "bytes32"
+        }
+      ],
+      "name": "getTickets",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256[]"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "payable": false,
+      "type": "constructor"
+    },
+    {
+      "payable": false,
+      "type": "fallback"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "_tID",
+          "type": "uint256"
+        }
+      ],
+      "name": "Pending",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "_tID",
+          "type": "uint256"
+        }
+      ],
+      "name": "Paid",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "_tID",
+          "type": "uint256"
+        }
+      ],
+      "name": "Unpaid",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "_tID",
+          "type": "uint256"
+        }
+      ],
+      "name": "NotGuilty",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "cop",
+          "type": "address"
+        }
+      ],
+      "name": "Added",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "cop",
+          "type": "address"
+        }
+      ],
+      "name": "Verified",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "cop",
+          "type": "address"
+        }
+      ],
+      "name": "Unverified",
+      "type": "event"
+    }
+  ],
+  "unlinked_binary": "0x6060604052341561000f57600080fd5b5b600060055560048054600160a060020a03191633600160a060020a03161790555b5b610a48806100416000396000f300606060405236156100a15763ffffffff7c010000000000000000000000000000000000000000000000000000000060003504166301aaf23381146100b45780631540f78a146100cc5780631dcedc44146100f1578063371cb8be1461010657806354258fc614610113578063787b305a146101345780637dc379fa14610155578063893d20e8146101c5578063e0337cdb146101f4578063f44ba7341461020f575b34156100ac57600080fd5b5b600080fd5b005b34156100bf57600080fd5b6100b2600435610279565b005b34156100d757600080fd5b6100df610380565b60405190815260200160405180910390f35b34156100fc57600080fd5b6100b2610386565b005b6100b260043561044b565b005b341561011e57600080fd5b6100b2600160a060020a036004351661059e565b005b341561013f57600080fd5b6100b2600160a060020a036004351661065e565b005b341561016057600080fd5b61016b600435610724565b6040518086815260200185600381111561018157fe5b60ff16815260200184815260200183600160a060020a0316600160a060020a0316815260200182600019166000191681526020019550505050505060405180910390f35b34156101d057600080fd5b6101d8610793565b604051600160a060020a03909116815260200160405180910390f35b34156101ff57600080fd5b6100b26004356024356107a3565b005b341561021a57600080fd5b610225600435610930565b60405160208082528190810183818151815260200191508051906020019060200280838360005b838110156102655780820151818401525b60200161024c565b505050509050019250505060405180910390f35b33600160a060020a0381166000908152600160205260409020541561029d57600080fd5b60606040519081016040908152838252600160a060020a03331660208084018290526000838501819052918252600190522081518155602082015160018201805473ffffffffffffffffffffffffffffffffffffffff1916600160a060020a039290921691909117905560408201516001909101805491151560a060020a0274ff000000000000000000000000000000000000000019909216919091179055507fdcfefddfe354ab15def7a2a6a8758e2ad4100c920318c627db94e29d833e156733604051600160a060020a03909116815260200160405180910390a15b5b5050565b60055481565b6004543390600160a060020a038083169116146103a257600080fd5b33600160a060020a03811660009081526001602052604090205415156103c757600080fd5b600160a060020a033390811660009081526001602081905260409182902001805474ff0000000000000000000000000000000000000000191660a060020a1790557f6a6455914f452787eb3985452aceedc1000fb545e394eb3b370e3d08958e0a5b919051600160a060020a03909116815260200160405180910390a15b5b505b50565b6000818152600360205260409020548190151561046757600080fd5b8160025b60008281526003602081905260409091206001015460ff169081111561048d57fe5b1461049757600080fd5b60008381526003602052604090205434819010156104b457600080fd5b60008481526003602081905260409182902080549101549091600160a060020a039091169082156108fc0290839051600060405180830381858888f19350505050151561050057600080fd5b60008581526003602052604090206001908101805460ff191682805b02179055507f581d416ae9dff30c9305c2b35cb09ed5991897ab97804db29ccf92678e9531608560405190815260200160405180910390a15b803411156105925733600160a060020a03166108fc8234039081150290604051600060405180830381858888f19350505050151561059257600080fd5b5b5b505b505b505b5050565b6004543390600160a060020a038083169116146105ba57600080fd5b600160a060020a038216600090815260016020526040902054829015156105e057600080fd5b600160a060020a03831660009081526001602081905260409182902001805474ff0000000000000000000000000000000000000000191690557fbf40ed975ac04192dc3c221b21155d52ba4322b78f63a7bd22c828bf2d3f6c8c90849051600160a060020a03909116815260200160405180910390a15b5b505b5050565b6004543390600160a060020a0380831691161461067a57600080fd5b600160a060020a038216600090815260016020526040902054829015156106a057600080fd5b600160a060020a03831660009081526001602081905260409182902001805474ff0000000000000000000000000000000000000000191660a060020a1790557f6a6455914f452787eb3985452aceedc1000fb545e394eb3b370e3d08958e0a5b90849051600160a060020a03909116815260200160405180910390a15b5b505b5050565b60008181526003602052604081205481908190819081908690151561074857600080fd5b60008781526003602081905260409091208054600182015460028301549383015460049093015491995060ff169750919550600160a060020a0316935091505b5b5091939590929450565b600454600160a060020a03165b90565b33600160a060020a03811660009081526001602052604090205415156107c857600080fd5b33600160a060020a0381166000908152600160208190526040909120015460a060020a900460ff1615156107fb57600080fd5b60a06040519081016040528481526020810160005b81526005546020808301829052600160a060020a03331660408085019190915260609093018790526000918252600390522081518155602082015160018083018054909160ff199091169083600381111561086757fe5b021790555060408201518160020155606082015160038201805473ffffffffffffffffffffffffffffffffffffffff1916600160a060020a039290921691909117905560808201516004909101555060008381526002602052604090208054600181016108d483826109bf565b916000526020600020900160005b50600554908190557f4e2c5ab35c5a6c864cb37f0d4b556e39e83aa85e744306ad9fd3ad7cc933028b915060405190815260200160405180910390a16005805460010190555b5b505b505050565b6109386109e9565b6000828152600260205260408120548391901161095457600080fd5b6000838152600260209081526040918290208054909290918281020190519081016040528092919081815260200182805480156109b057602002820191906000526020600020905b81548152602001906001019080831161099c575b505050505091505b5b50919050565b815481835581811511610598576000838152602090206105989181019083016109fb565b5b505050565b60206040519081016040526000815290565b6107a091905b80821115610a155760008155600101610a01565b5090565b905600a165627a7a7230582067743fd86f5bcf62b53dfe536e6fee135f4b2c166b36cbfa28e32fe753452adc0029",
+  "networks": {
+    "4": {
+      "events": {
+        "0x4e2c5ab35c5a6c864cb37f0d4b556e39e83aa85e744306ad9fd3ad7cc933028b": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "_tID",
+              "type": "uint256"
+            }
+          ],
+          "name": "Pending",
+          "type": "event"
+        },
+        "0x581d416ae9dff30c9305c2b35cb09ed5991897ab97804db29ccf92678e953160": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "_tID",
+              "type": "uint256"
+            }
+          ],
+          "name": "Paid",
+          "type": "event"
+        },
+        "0xe56930cb57a157649edf1e17ce3b57957899f875af821456294818feeba621c3": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "_tID",
+              "type": "uint256"
+            }
+          ],
+          "name": "Unpaid",
+          "type": "event"
+        },
+        "0x05e4978d8c972d93aa1d4dd4a8f7bea2348175cdfec90b69d640596711068af7": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "_tID",
+              "type": "uint256"
+            }
+          ],
+          "name": "NotGuilty",
+          "type": "event"
+        },
+        "0xdcfefddfe354ab15def7a2a6a8758e2ad4100c920318c627db94e29d833e1567": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "cop",
+              "type": "address"
+            }
+          ],
+          "name": "Added",
+          "type": "event"
+        },
+        "0x6a6455914f452787eb3985452aceedc1000fb545e394eb3b370e3d08958e0a5b": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "cop",
+              "type": "address"
+            }
+          ],
+          "name": "Verified",
+          "type": "event"
+        },
+        "0xbf40ed975ac04192dc3c221b21155d52ba4322b78f63a7bd22c828bf2d3f6c8c": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "cop",
+              "type": "address"
+            }
+          ],
+          "name": "Unverified",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x6a6a6f6ff25187e31c89e22612d45e27c5850be5",
+      "updated_at": 1506701300635
+    },
+    "1506689370009": {
+      "events": {
+        "0x4e2c5ab35c5a6c864cb37f0d4b556e39e83aa85e744306ad9fd3ad7cc933028b": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "_tID",
+              "type": "uint256"
+            }
+          ],
+          "name": "Pending",
+          "type": "event"
+        },
+        "0x581d416ae9dff30c9305c2b35cb09ed5991897ab97804db29ccf92678e953160": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "_tID",
+              "type": "uint256"
+            }
+          ],
+          "name": "Paid",
+          "type": "event"
+        },
+        "0xe56930cb57a157649edf1e17ce3b57957899f875af821456294818feeba621c3": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "_tID",
+              "type": "uint256"
+            }
+          ],
+          "name": "Unpaid",
+          "type": "event"
+        },
+        "0x05e4978d8c972d93aa1d4dd4a8f7bea2348175cdfec90b69d640596711068af7": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "_tID",
+              "type": "uint256"
+            }
+          ],
+          "name": "NotGuilty",
+          "type": "event"
+        },
+        "0xdcfefddfe354ab15def7a2a6a8758e2ad4100c920318c627db94e29d833e1567": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "cop",
+              "type": "address"
+            }
+          ],
+          "name": "Added",
+          "type": "event"
+        },
+        "0x6a6455914f452787eb3985452aceedc1000fb545e394eb3b370e3d08958e0a5b": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "cop",
+              "type": "address"
+            }
+          ],
+          "name": "Verified",
+          "type": "event"
+        },
+        "0xbf40ed975ac04192dc3c221b21155d52ba4322b78f63a7bd22c828bf2d3f6c8c": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "cop",
+              "type": "address"
+            }
+          ],
+          "name": "Unverified",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0xf85a8a8a2767d3cbbd1a67292faf74a44d515e05",
+      "updated_at": 1506691318304
+    },
+    "1506692790509": {
+      "events": {
+        "0x4e2c5ab35c5a6c864cb37f0d4b556e39e83aa85e744306ad9fd3ad7cc933028b": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "_tID",
+              "type": "uint256"
+            }
+          ],
+          "name": "Pending",
+          "type": "event"
+        },
+        "0x581d416ae9dff30c9305c2b35cb09ed5991897ab97804db29ccf92678e953160": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "_tID",
+              "type": "uint256"
+            }
+          ],
+          "name": "Paid",
+          "type": "event"
+        },
+        "0xe56930cb57a157649edf1e17ce3b57957899f875af821456294818feeba621c3": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "_tID",
+              "type": "uint256"
+            }
+          ],
+          "name": "Unpaid",
+          "type": "event"
+        },
+        "0x05e4978d8c972d93aa1d4dd4a8f7bea2348175cdfec90b69d640596711068af7": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "_tID",
+              "type": "uint256"
+            }
+          ],
+          "name": "NotGuilty",
+          "type": "event"
+        },
+        "0xdcfefddfe354ab15def7a2a6a8758e2ad4100c920318c627db94e29d833e1567": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "cop",
+              "type": "address"
+            }
+          ],
+          "name": "Added",
+          "type": "event"
+        },
+        "0x6a6455914f452787eb3985452aceedc1000fb545e394eb3b370e3d08958e0a5b": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "cop",
+              "type": "address"
+            }
+          ],
+          "name": "Verified",
+          "type": "event"
+        },
+        "0xbf40ed975ac04192dc3c221b21155d52ba4322b78f63a7bd22c828bf2d3f6c8c": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "cop",
+              "type": "address"
+            }
+          ],
+          "name": "Unverified",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x882e4c52356a00b43a9e9d001920eafcbbae4553",
+      "updated_at": 1506692797763
+    },
+    "1506697233685": {
+      "events": {
+        "0x4e2c5ab35c5a6c864cb37f0d4b556e39e83aa85e744306ad9fd3ad7cc933028b": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "_tID",
+              "type": "uint256"
+            }
+          ],
+          "name": "Pending",
+          "type": "event"
+        },
+        "0x581d416ae9dff30c9305c2b35cb09ed5991897ab97804db29ccf92678e953160": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "_tID",
+              "type": "uint256"
+            }
+          ],
+          "name": "Paid",
+          "type": "event"
+        },
+        "0xe56930cb57a157649edf1e17ce3b57957899f875af821456294818feeba621c3": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "_tID",
+              "type": "uint256"
+            }
+          ],
+          "name": "Unpaid",
+          "type": "event"
+        },
+        "0x05e4978d8c972d93aa1d4dd4a8f7bea2348175cdfec90b69d640596711068af7": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "_tID",
+              "type": "uint256"
+            }
+          ],
+          "name": "NotGuilty",
+          "type": "event"
+        },
+        "0xdcfefddfe354ab15def7a2a6a8758e2ad4100c920318c627db94e29d833e1567": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "cop",
+              "type": "address"
+            }
+          ],
+          "name": "Added",
+          "type": "event"
+        },
+        "0x6a6455914f452787eb3985452aceedc1000fb545e394eb3b370e3d08958e0a5b": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "cop",
+              "type": "address"
+            }
+          ],
+          "name": "Verified",
+          "type": "event"
+        },
+        "0xbf40ed975ac04192dc3c221b21155d52ba4322b78f63a7bd22c828bf2d3f6c8c": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "cop",
+              "type": "address"
+            }
+          ],
+          "name": "Unverified",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x57c262804f1fc3b05dae0c6887b9074cd0d0dec3",
+      "updated_at": 1506697360192
+    },
+    "1506698305728": {
+      "events": {
+        "0x4e2c5ab35c5a6c864cb37f0d4b556e39e83aa85e744306ad9fd3ad7cc933028b": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "_tID",
+              "type": "uint256"
+            }
+          ],
+          "name": "Pending",
+          "type": "event"
+        },
+        "0x581d416ae9dff30c9305c2b35cb09ed5991897ab97804db29ccf92678e953160": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "_tID",
+              "type": "uint256"
+            }
+          ],
+          "name": "Paid",
+          "type": "event"
+        },
+        "0xe56930cb57a157649edf1e17ce3b57957899f875af821456294818feeba621c3": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "_tID",
+              "type": "uint256"
+            }
+          ],
+          "name": "Unpaid",
+          "type": "event"
+        },
+        "0x05e4978d8c972d93aa1d4dd4a8f7bea2348175cdfec90b69d640596711068af7": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "_tID",
+              "type": "uint256"
+            }
+          ],
+          "name": "NotGuilty",
+          "type": "event"
+        },
+        "0xdcfefddfe354ab15def7a2a6a8758e2ad4100c920318c627db94e29d833e1567": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "cop",
+              "type": "address"
+            }
+          ],
+          "name": "Added",
+          "type": "event"
+        },
+        "0x6a6455914f452787eb3985452aceedc1000fb545e394eb3b370e3d08958e0a5b": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "cop",
+              "type": "address"
+            }
+          ],
+          "name": "Verified",
+          "type": "event"
+        },
+        "0xbf40ed975ac04192dc3c221b21155d52ba4322b78f63a7bd22c828bf2d3f6c8c": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "cop",
+              "type": "address"
+            }
+          ],
+          "name": "Unverified",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0xe5b6a404643038eabb29e8ca962867f6e184fc4b",
+      "updated_at": 1506698322384
+    },
+    "1506700749799": {
+      "events": {
+        "0x4e2c5ab35c5a6c864cb37f0d4b556e39e83aa85e744306ad9fd3ad7cc933028b": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "_tID",
+              "type": "uint256"
+            }
+          ],
+          "name": "Pending",
+          "type": "event"
+        },
+        "0x581d416ae9dff30c9305c2b35cb09ed5991897ab97804db29ccf92678e953160": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "_tID",
+              "type": "uint256"
+            }
+          ],
+          "name": "Paid",
+          "type": "event"
+        },
+        "0xe56930cb57a157649edf1e17ce3b57957899f875af821456294818feeba621c3": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "_tID",
+              "type": "uint256"
+            }
+          ],
+          "name": "Unpaid",
+          "type": "event"
+        },
+        "0x05e4978d8c972d93aa1d4dd4a8f7bea2348175cdfec90b69d640596711068af7": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "_tID",
+              "type": "uint256"
+            }
+          ],
+          "name": "NotGuilty",
+          "type": "event"
+        },
+        "0xdcfefddfe354ab15def7a2a6a8758e2ad4100c920318c627db94e29d833e1567": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "cop",
+              "type": "address"
+            }
+          ],
+          "name": "Added",
+          "type": "event"
+        },
+        "0x6a6455914f452787eb3985452aceedc1000fb545e394eb3b370e3d08958e0a5b": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "cop",
+              "type": "address"
+            }
+          ],
+          "name": "Verified",
+          "type": "event"
+        },
+        "0xbf40ed975ac04192dc3c221b21155d52ba4322b78f63a7bd22c828bf2d3f6c8c": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "cop",
+              "type": "address"
+            }
+          ],
+          "name": "Unverified",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x91d662f749925ee374121017f2f8c48fc22f2c4e",
+      "updated_at": 1506700769743
+    }
+  },
+  "schema_version": "0.0.5",
+  "updated_at": 1506701300635
+}

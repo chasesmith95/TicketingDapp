@@ -1,0 +1,46 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.grey-section {
+  background: grey;
+  margin: 0;
+  padding: 25px;
+}
+
+.section-text {
+  font-family: sans-serif;
+  margin-right: 10%;
+  margin-left: 10%;
+  font-size: 20px;
+}
+.footer {
+  background: black;
+  padding: 50px;
+}
+.section {
+  background: white;
+  margin: 0;
+  padding: 25px;
+}
+
+.grey-section-header {
+
+}
+
+div .header {
+  margin: 0;
+  padding: 20px;
+  width: 100%;
+  background: black;
+}
+
+.blue {
+ color: #00d8ff;
+}
+
+.white {
+ color: white;
+}
